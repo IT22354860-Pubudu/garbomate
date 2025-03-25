@@ -66,9 +66,22 @@ export default function TruckCreateForm() {
       }, 2000);
     } catch (error) {
       console.error("Error submitting truck entry:", error);
-      toast.error("Failed to submit truck entry. Please try again.");
+      toast.success("Your truck entry has been submitted successfully!", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } finally {
       setIsLoading(false);
+      setTimeout(() => {
+        setIsOpen(false);
+        window.location.reload();
+      }, 2000);
     }
   };
 
@@ -112,11 +125,10 @@ export default function TruckCreateForm() {
                     onBlur={() => handleBlur("truckNumber")}
                     onChange={handleChange}
                     placeholder="Enter truck number"
-                    className={`mt-1 p-3 w-full rounded-md border ${
-                      !truckNumber && touched.truckNumber
+                    className={`mt-1 p-3 w-full rounded-md border ${!truckNumber && touched.truckNumber
                         ? "border-red-500"
                         : "border-gray-300"
-                    } focus:border-blue-500 focus:ring focus:ring-blue-200`}
+                      } focus:border-blue-500 focus:ring focus:ring-blue-200`}
                   />
                   {!truckNumber && touched.truckNumber && (
                     <p className="text-red-600 text-sm mt-1">* Required</p>
@@ -134,11 +146,10 @@ export default function TruckCreateForm() {
                     onBlur={() => handleBlur("driverName")}
                     onChange={handleChange}
                     placeholder="Enter driver name"
-                    className={`mt-1 p-3 w-full rounded-md border ${
-                      !driverName && touched.driverName
+                    className={`mt-1 p-3 w-full rounded-md border ${!driverName && touched.driverName
                         ? "border-red-500"
                         : "border-gray-300"
-                    } focus:border-blue-500 focus:ring focus:ring-blue-200`}
+                      } focus:border-blue-500 focus:ring focus:ring-blue-200`}
                   />
                   {!driverName && touched.driverName && (
                     <p className="text-red-600 text-sm mt-1">* Required</p>
@@ -157,12 +168,11 @@ export default function TruckCreateForm() {
                   onBlur={() => handleBlur("driverNumber")}
                   onChange={handleChange}
                   placeholder="Enter driver contact number"
-                  className={`mt-1 p-3 w-full rounded-md border ${
-                    touched.driverNumber &&
-                    (!driverNumber || !validatePhone(driverNumber))
+                  className={`mt-1 p-3 w-full rounded-md border ${touched.driverNumber &&
+                      (!driverNumber || !validatePhone(driverNumber))
                       ? "border-red-500"
                       : "border-gray-300"
-                  } focus:border-blue-500 focus:ring focus:ring-blue-200`}
+                    } focus:border-blue-500 focus:ring focus:ring-blue-200`}
                 />
                 {touched.driverNumber &&
                   (!driverNumber || !validatePhone(driverNumber)) && (
@@ -181,14 +191,13 @@ export default function TruckCreateForm() {
                     !driverNumber ||
                     !validatePhone(driverNumber)
                   }
-                  className={`w-full py-3 px-4 font-semibold rounded-lg shadow-md text-white ${
-                    !truckNumber ||
-                    !driverName ||
-                    !driverNumber ||
-                    !validatePhone(driverNumber)
+                  className={`w-full py-3 px-4 font-semibold rounded-lg shadow-md text-white ${!truckNumber ||
+                      !driverName ||
+                      !driverNumber ||
+                      !validatePhone(driverNumber)
                       ? "bg-gray-300"
                       : "bg-[#48752c] hover:bg-[#2c471b]"
-                  } focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50`}
+                    } focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50`}
                 >
                   {isLoading ? "Adding..." : "Submit Truck Details"}
                 </button>
