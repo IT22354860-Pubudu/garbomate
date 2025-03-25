@@ -1,1 +1,1 @@
-# garbomate
+# GarboMateWMS
